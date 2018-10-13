@@ -6,7 +6,7 @@ class ArticleRes:
     article = api.model('article', {
         'title': fields.String(required=True, description='title of article'),
         'author': fields.String(required=True, description='author of article'),
-        'written_date': fields.DateTime(dt_format='rfc822', required=True, description='date article was written'),
+        'written_date': fields.DateTime(dt_format='rfc822', required=False, description='date article was written'),
         'content': fields.String(required=True, description='the text of article'),
-        'registered_on': fields.DateTime(dt_format='rfc822', required=True, description='date article submitted on wiki'),
+        'registered_on': fields.DateTime(dt_format='rfc822', description='date article submitted on wiki'),
     })

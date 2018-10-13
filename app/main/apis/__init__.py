@@ -3,6 +3,7 @@ from flask_restplus import Api
 
 from ..controller.user_controller import api as user_ns
 from ..controller.article_controller import api as article_ns
+from ..controller.auth_controller import api as auth_ns
 
 # blueprint = Blueprint('api', __name__)
 
@@ -14,3 +15,4 @@ api = Api(
 
 api.add_namespace(user_ns, path='/user')
 api.add_namespace(article_ns, path='/article')
+api.add_namespace(auth_ns)

@@ -1,6 +1,5 @@
 from flask_restplus import Namespace, Resource, fields
 
-
 class UserRes:
     api = Namespace('user', description='user related operations')
     user = api.model('user', {
@@ -8,4 +7,11 @@ class UserRes:
         'username': fields.String(required=True, description='user username'),
         'password': fields.String(required=True, description='user password'),
         'public_id': fields.String(description='user Identifier')
+    })
+
+class AuthRes:
+    api = Namespace('auth', description='authentication related operations')
+    user_auth = api.model('auth_details', {
+        'email': fields.String(required=True, description='The email address'),
+        'password': fields.String(required=True, description='The user password '),
     })
