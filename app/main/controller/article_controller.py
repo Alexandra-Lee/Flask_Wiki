@@ -2,7 +2,7 @@ from flask import request
 from flask_restplus import Resource
 
 from ..apis.article_namespace import ArticleRes
-from ..service.article_service import save_new_article, get_all_articles, get_article
+from ..service.article_service import save_new_article, get_all_articles, get_article, delete_article, save_changes
 
 api = ArticleRes.api
 _article = ArticleRes.article
@@ -24,17 +24,29 @@ class ArticleList(Resource):
         data = request.json
         return save_new_article(data=data)
 
-
-@api.route('/<title>')
-@api.param('title', 'The Article identifier')
+@api.route('/<int:id>')
+@api.param('id', 'The Article identifier')
 @api.response(404, 'Article not found.')
 class Article(Resource):
     @api.doc('get article')
     @api.marshal_with(_article)
-    def get(self, title):
-        """get article given its identifier"""
-        article = get_article(title)
+    def get(self, id):
+        """get article given its identifier"""       
+        article = get_article(id)
         if not article:
             api.abort(404)
         else:
             return article
+
+    @api.doc('delete_article')
+    @api.response(204, 'Article deleted')
+    def delete(self, id):
+        """Delete article given its identifier"""
+        article.delete(id)
+        return '', 204
+
+    @api.expect(_article)
+    @api.marshal_with(_article)
+    def put(self, id):
+        """Update article given its identifier"""
+        return article.update(id, api.payload)
